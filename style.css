@@ -1,0 +1,25 @@
+* {
+    font-family: monospace;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.tic-tac-toe {
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ttt-item {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    font-size: 70px;
+    text-align: center;
+}
