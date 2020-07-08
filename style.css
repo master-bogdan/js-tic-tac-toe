@@ -1,5 +1,13 @@
 * {
     font-family: monospace;
+    font-size: 18px;
+}
+
+main {
+    margin: 0 auto;
+    padding: 10% 0;
+    background: -webkit-linear-gradient(to top, #F9D423, #FF4E50);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #F9D423, #FF4E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .container {
@@ -14,6 +22,12 @@
     height: 300px;
     display: flex;
     flex-wrap: wrap;
+    background: -webkit-linear-gradient(to right, #0575E6, #00F260);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0575E6, #00F260); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#reset {
+    margin-top: 20px;
 }
 
 .ttt-item {
@@ -23,4 +37,14 @@
     box-sizing: border-box;
     font-size: 70px;
     text-align: center;
+}
+
+nav {
+    width: 100%;
+}
+
+nav img {
+    display: block;
+    width: 50px;
+    text-align: right;
 }

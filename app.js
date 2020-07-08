@@ -102,6 +102,7 @@ const startNewGame = () => {
         item.innerHTML = '';
     });
     count = 0;
+    winStatus = false;
 };
 
 resetBtn.addEventListener('click', startNewGame);

@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Vanilla JS Tic Tac Toe</title>
 </head>
 <body>
-    <div class="container">
-        <div class="buttons">
-            <button data='x'>Choose X</button>
-            <button data='o'>Choose O</button>
-            <div class="out">Your choise: X</div>
-        </div>
-        <div class="winner-сount">
-            <div class="x-win">Total X Wins: 0</div>
-            <div class="o-win">Total O Wins: 0</div>
-        </div>
-        <div id="tic-tac-toe">
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+              <img src="github.svg" width="50" height="50" class="d-inline-block align-center" alt="" loading="lazy">
+              Vanilla JavaScript<br>TicTacToe Game
+            </a>
+        </nav>
+    <main>
+        <div class="container">
+            <div class="buttons">
+                <button class="btn btn-warning" data='x'>Choose 'X'</button>
+                <span>OR</span>
+                <button class="btn btn-warning" data='o'>Choose 'O'</button>
+                <div class="out">Your choise: X</div>
+            </div>
+            <div class="winner-сount">
+                <div class="x-win">Total X Wins: 0</div>
+                <div class="o-win">Total O Wins: 0</div>
+            </div>
+            <div id="tic-tac-toe">
 
+            </div>
+            <button class="btn btn-success" id="reset">START NEW GAME</button>
         </div>
-        <button id="reset">Start new game</button>
-    </div>
-
+    </main>
     <script src="app.js"></script>
 </body>
 </html>
