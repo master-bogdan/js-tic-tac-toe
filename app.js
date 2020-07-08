@@ -1,12 +1,46 @@
+// 1. Добавить возможность ничьей
+// 2. Добавить кнопку обнулить игру (начать новую) - сделано
+// 3. Добавить счет побед крестиков и ноликов - сделано
+// 4. Добавить возможность выбора крестика или нолика - сделано
+
+const charChoise = document.querySelector('.choose_buttons');
+const charChoiseOut = document.querySelector('.choise');
 const board = document.querySelector('.tic-tac-toe');
-const [...allitem] = document.querySelectorAll('.ttt-item');
+const [...allSquares] = document.querySelectorAll('.ttt-item');
 const reset = document.querySelector('#reset');
-const xOut = document.querySelector('.xWin');
-const oOut = document.querySelector('.oWin');
+const xOut = document.querySelector('.x-win');
+const oOut = document.querySelector('.o-win');
+
+let setChar1 = 'x';
+let setChar2 = 'o';
+
+// Функция выбора символа
+charChoise.addEventListener('click', (event) => {
+    let choise = event.target.getAttribute('id');
+    if (choise === 'x') {
+        setChar1 = 'x';
+        setChar2 = 'o';
+    } 
+    else {
+        setChar1 = 'o';
+        setChar2 = 'x';
+    } 
+
+    charChoiseOut.innerHTML = `You choose ${setChar1.toLocaleUpperCase()}`;
+});
+
+// Счетчик ходов и следующего символа
+let count = 0;
+let currentChar = (count % 2 === 0) ? setChar1 : setChar2;
+
+
+// Счетчики побед Х или О
+let xWin = 0;
+let oWin = 0;
 
 // Функция сброса
 const resetResult = () => {
-    allitem.forEach(item => {
+    allSquares.forEach(item => {
         item.innerHTML = '';
         count = 0;
     });
@@ -15,25 +49,15 @@ const resetResult = () => {
 // Сброс игры по нажатию кнопки
 reset.addEventListener('click', resetResult);
 
-let count = 0;
-let currentChar = (count % 2 === 0) ? 'x' : 'o';
-let xWin = 0;
-let oWin = 0;
-// 1. Добавить возможность ничьей
-// 2. Добавить кнопку обнулить игру (начать новую) - сделано
-// 3. Добавить счет побед крестиков и ноликов - сделано
-// 4. Добавить возможность выбора крестика или нолика
-
 board.addEventListener('click', (event) => {
-    currentChar = (count % 2 === 0) ? 'x' : 'o';
-    let currentItem = event.target;
-    if (currentItem.classList.contains('ttt-item') 
-        && currentItem.innerHTML === '') {
-        currentItem.innerHTML = currentChar;
+    currentChar = (count % 2 === 0) ? setChar1 : setChar2;
+    let currentSquare = event.target;
+    if (currentSquare.classList.contains('ttt-item') 
+        && currentSquare.innerHTML === '') {
+        currentSquare.innerHTML = currentChar;
         count++;
     } 
     checkWinner();
-    resetResult;
 });
 
 // Функция поиска победителя
@@ -49,10 +73,12 @@ const checkWinner = () => {
         [2, 4, 6]
     ];
     for (let i = 0; i < winnerLines.length; i++) {
-        if (allitem[winnerLines[i][0]].innerHTML === currentChar
-            && allitem[winnerLines[i][1]].innerHTML === currentChar
-            && allitem[winnerLines[i][2]].innerHTML === currentChar ) {
+        if (allSquares[winnerLines[i][0]].innerHTML === currentChar
+            && allSquares[winnerLines[i][1]].innerHTML === currentChar
+            && allSquares[winnerLines[i][2]].innerHTML === currentChar ) {
             alert (currentChar + ' win');
+
+            // Условие для отображения счетчика победа Х или О
             if (currentChar === 'x') {
                 xWin++;
                 xOut.innerHTML = `Total X Wins: ${xWin}`;
@@ -62,7 +88,10 @@ const checkWinner = () => {
                 oOut.innerHTML = `Total O Wins: ${oWin}`;
             }
             resetResult();
-        } 
+        }
+        // else {
+        //     alert ('draw');
+        // } 
     }
 };
 
