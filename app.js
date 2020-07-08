@@ -1,22 +1,39 @@
 const board = document.querySelector('.tic-tac-toe');
 const [...allitem] = document.querySelectorAll('.ttt-item');
+const reset = document.querySelector('#reset');
+const xOut = document.querySelector('.xWin');
+const oOut = document.querySelector('.oWin');
+
+// Функция сброса
+const resetResult = () => {
+    allitem.forEach(item => {
+        item.innerHTML = '';
+        count = 0;
+    });
+};
+
+// Сброс игры по нажатию кнопки
+reset.addEventListener('click', resetResult);
 
 let count = 0;
-
-// 1. Добваить возможность ничьей
+let currentChar = (count % 2 === 0) ? 'x' : 'o';
+let xWin = 0;
+let oWin = 0;
+// 1. Добавить возможность ничьей
 // 2. Добавить кнопку обнулить игру (начать новую) - сделано
-// 3. Добавить счет побед крестиков и ноликов
+// 3. Добавить счет побед крестиков и ноликов - сделано
 // 4. Добавить возможность выбора крестика или нолика
 
 board.addEventListener('click', (event) => {
+    currentChar = (count % 2 === 0) ? 'x' : 'o';
     let currentItem = event.target;
     if (currentItem.classList.contains('ttt-item') 
         && currentItem.innerHTML === '') {
-        (count % 2 === 0) ? currentItem.innerHTML = 'x' : currentItem.innerHTML = 'o';
+        currentItem.innerHTML = currentChar;
         count++;
     } 
     checkWinner();
-    resetResult();
+    resetResult;
 });
 
 // Функция поиска победителя
@@ -32,29 +49,22 @@ const checkWinner = () => {
         [2, 4, 6]
     ];
     for (let i = 0; i < winnerLines.length; i++) {
-        if (allitem[winnerLines[i][0]].innerHTML === 'x'
-            && allitem[winnerLines[i][1]].innerHTML === 'x'
-            && allitem[winnerLines[i][2]].innerHTML === 'x' ) {
-            alert ('x win');
+        if (allitem[winnerLines[i][0]].innerHTML === currentChar
+            && allitem[winnerLines[i][1]].innerHTML === currentChar
+            && allitem[winnerLines[i][2]].innerHTML === currentChar ) {
+            alert (currentChar + ' win');
+            if (currentChar === 'x') {
+                xWin++;
+                xOut.innerHTML = `Total X Wins: ${xWin}`;
+            } 
+            else {
+                oWin++;
+                oOut.innerHTML = `Total O Wins: ${oWin}`;
+            }
+            resetResult();
         } 
-        else if (allitem[winnerLines[i][0]].innerHTML === 'o'
-                && allitem[winnerLines[i][1]].innerHTML === 'o'
-                && allitem[winnerLines[i][2]].innerHTML === 'o' ) {
-            alert('o win');
-        }
     }
 };
 
 
-
-// Функция сброса
-const resetResult = () => {
-    const reset = document.querySelector('#reset');
-    reset.addEventListener('click', () => {
-        allitem.forEach(item => {
-            item.innerHTML = '';
-            count = 0;
-        });
-    });
-};
 
