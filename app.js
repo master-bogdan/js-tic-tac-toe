@@ -3,7 +3,7 @@
 // 3. Добавить счет побед крестиков и ноликов - сделано
 // 4. Добавить возможность выбора крестика или нолика - сделано
 
-const charChoise = document.querySelector('.choose_buttons');
+const chooseButtons = document.querySelector('.choose-buttons');
 const charChoiseOut = document.querySelector('.choise');
 const board = document.querySelector('.tic-tac-toe');
 const [...allSquares] = document.querySelectorAll('.ttt-item');
@@ -15,7 +15,7 @@ let setChar1 = 'x';
 let setChar2 = 'o';
 
 // Функция выбора символа
-charChoise.addEventListener('click', (event) => {
+const charChoise = (event) => {
     let choise = event.target.getAttribute('id');
     if (choise === 'x') {
         setChar1 = 'x';
@@ -25,14 +25,14 @@ charChoise.addEventListener('click', (event) => {
         setChar1 = 'o';
         setChar2 = 'x';
     } 
-
     charChoiseOut.innerHTML = `You choose ${setChar1.toLocaleUpperCase()}`;
-});
+};
+
+chooseButtons.addEventListener('click', charChoise);
 
 // Счетчик ходов и следующего символа
 let count = 0;
 let currentChar = (count % 2 === 0) ? setChar1 : setChar2;
-
 
 // Счетчики побед Х или О
 let xWin = 0;
@@ -49,7 +49,8 @@ const resetResult = () => {
 // Сброс игры по нажатию кнопки
 reset.addEventListener('click', resetResult);
 
-board.addEventListener('click', (event) => {
+// Функция заполнения квадратов символами
+const boardFill = (event) => {
     currentChar = (count % 2 === 0) ? setChar1 : setChar2;
     let currentSquare = event.target;
     if (currentSquare.classList.contains('ttt-item') 
@@ -58,7 +59,9 @@ board.addEventListener('click', (event) => {
         count++;
     } 
     checkWinner();
-});
+};
+
+board.addEventListener('click', boardFill);
 
 // Функция поиска победителя
 const checkWinner = () => {
@@ -89,9 +92,6 @@ const checkWinner = () => {
             }
             resetResult();
         }
-        // else {
-        //     alert ('draw');
-        // } 
     }
 };
 
