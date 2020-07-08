@@ -1,18 +1,25 @@
-
-// 3. Добавить счет побед крестиков и ноликов - сделано
-// 4. Добавить возможность выбора крестика или нолика - сделано
+window.addEventListener('DOMContentLoaded', () => {
 
 const area = document.querySelector('#tic-tac-toe');
 const resetBtn = document.querySelector('#reset');
 const xWin = document.querySelector('.x-win');
 const oWin = document.querySelector('.o-win');
+const choiseBtn = document.querySelector('.buttons');
 const field = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
-let current = '';
+let current = 'x';
 let count = 0;
 let winStatus = false;
 let xWinCount = 0;
 let oWinCount = 0;
+
+const startChar = (event) => {
+    const data = event.target.getAttribute('data');
+    current = data;
+    document.querySelector('.out').textContent = `Your choise: ${current.toUpperCase()}`;
+};
+
+choiseBtn.addEventListener('click', startChar);
 
 // Функция отрисовки игрового поля || Game field render
 const fieldRender = () => {
@@ -28,7 +35,11 @@ fieldRender();
 const game = () => {
     let data = event.target.getAttribute('data');
     let currentSquare = event.target;
-    (count % 2 === 0) ? current = 'x' : current = 'o';
+    if (current === 'x') {
+        (count % 2 === 0) ? current = 'x' : current = 'o';
+    } else {
+        (count % 2 === 0) ? current = 'o' : current = 'x';
+    }
     if (data == 0) {
         currentSquare.setAttribute('data', current);
         currentSquare.innerHTML = current;
@@ -94,3 +105,5 @@ const startNewGame = () => {
 };
 
 resetBtn.addEventListener('click', startNewGame);
+
+});
