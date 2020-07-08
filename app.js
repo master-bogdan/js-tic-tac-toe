@@ -1,12 +1,18 @@
-// 2. Добавить кнопку обнулить игру (начать новую) - сделано
+
 // 3. Добавить счет побед крестиков и ноликов - сделано
 // 4. Добавить возможность выбора крестика или нолика - сделано
 
 const area = document.querySelector('#tic-tac-toe');
+const resetBtn = document.querySelector('#reset');
+const xWin = document.querySelector('.x-win');
+const oWin = document.querySelector('.o-win');
 const field = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+
 let current = '';
 let count = 0;
 let winStatus = false;
+let xWinCount = 0;
+let oWinCount = 0;
 
 // Функция отрисовки игрового поля || Game field render
 const fieldRender = () => {
@@ -22,7 +28,6 @@ fieldRender();
 const game = () => {
     let data = event.target.getAttribute('data');
     let currentSquare = event.target;
-    console.log(currentSquare);
     (count % 2 === 0) ? current = 'x' : current = 'o';
     if (data == 0) {
         currentSquare.setAttribute('data', current);
@@ -35,6 +40,7 @@ const game = () => {
 
 area.addEventListener('click', game);
 
+// Функция проверки победителя || Check winner function
 const isWinner = () => {
     const [...squares] = document.querySelectorAll('.ttt-item');
     const winnerLine = [
@@ -53,12 +59,38 @@ const isWinner = () => {
             && squares[winnerLine[i][2]].innerHTML === current) {
                 winStatus = true;
                 alert(current + ' win');
+                if(current === 'x') {
+                    xWinCount++;
+                    xWin.textContent = `Total X Wins: ${xWinCount}`;
+                } else {
+                    oWinCount++;
+                    oWin.textContent = `Total O Wins: ${oWinCount}`;
+                }
+                setTimeout(() => {
+                    startNewGame();
+                },1000);
             }
     }
 };
 
+// Функция проверки на ничью || check for draw
 const isDraw = () => {
     if (count == 9 && winStatus == false) {
         alert('draw');
+        setTimeout(() => {
+            startNewGame();
+        },1000);
     }
 };
+
+// Функция старта новой игры || Start new game function
+const startNewGame = () => {
+    const [...squares] = document.querySelectorAll('.ttt-item');
+    squares.forEach(item => {
+        item.setAttribute('data', 0);
+        item.innerHTML = '';
+    });
+    count = 0;
+};
+
+resetBtn.addEventListener('click', startNewGame);
