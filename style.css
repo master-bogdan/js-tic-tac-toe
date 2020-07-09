@@ -48,3 +48,15 @@ nav img {
     width: 50px;
     text-align: right;
 }
+.out {
+    background: black;
+    color: white;
+}
+
+@media screen and (max-width: 437px) {
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+}

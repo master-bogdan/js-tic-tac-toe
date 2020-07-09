@@ -7,7 +7,9 @@ const oWin = document.querySelector('.o-win');
 const choiseBtn = document.querySelector('.buttons');
 const field = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
-let current = 'x';
+let char1 = 'x';
+let char2 = 'o';
+let currentChar = '';
 let count = 0;
 let winStatus = false;
 let xWinCount = 0;
@@ -15,8 +17,16 @@ let oWinCount = 0;
 
 const startChar = (event) => {
     const data = event.target.getAttribute('data');
-    current = data;
-    document.querySelector('.out').textContent = `Your choise: ${current.toUpperCase()}`;
+    char1 = data;
+    if (char1 === 'x') {
+        char1 = 'x';
+        char2 = 'o';
+
+    } else {
+        char1 = 'o';
+        char2 = 'x';
+    }
+    document.querySelector('.out').textContent = `Your choise: ${char1.toUpperCase()}`;
 };
 
 choiseBtn.addEventListener('click', startChar);
@@ -35,14 +45,10 @@ fieldRender();
 const game = () => {
     let data = event.target.getAttribute('data');
     let currentSquare = event.target;
-    if (current === 'x') {
-        (count % 2 === 0) ? current = 'x' : current = 'o';
-    } else {
-        (count % 2 === 0) ? current = 'o' : current = 'x';
-    }
+    currentChar = (count % 2 === 0) ? char1 : char2;
     if (data == 0) {
-        currentSquare.setAttribute('data', current);
-        currentSquare.innerHTML = current;
+        currentSquare.setAttribute('data', currentChar);
+        currentSquare.innerHTML = currentChar;
         count++;
     }
     isWinner();
@@ -65,12 +71,12 @@ const isWinner = () => {
         [2, 4, 6]
     ];
     for (let i = 0; i < winnerLine.length; i++) {
-        if (squares[winnerLine[i][0]].innerHTML === current
-            && squares[winnerLine[i][1]].innerHTML === current
-            && squares[winnerLine[i][2]].innerHTML === current) {
+        if (squares[winnerLine[i][0]].innerHTML === currentChar
+            && squares[winnerLine[i][1]].innerHTML === currentChar
+            && squares[winnerLine[i][2]].innerHTML === currentChar) {
                 winStatus = true;
-                alert(current + ' win');
-                if(current === 'x') {
+                alert(currentChar + ' win');
+                if(currentChar === 'x') {
                     xWinCount++;
                     xWin.textContent = `Total X Wins: ${xWinCount}`;
                 } else {
@@ -79,7 +85,7 @@ const isWinner = () => {
                 }
                 setTimeout(() => {
                     startNewGame();
-                },1000);
+                },200);
             }
     }
 };
@@ -90,7 +96,7 @@ const isDraw = () => {
         alert('draw');
         setTimeout(() => {
             startNewGame();
-        },1000);
+        },500);
     }
 };
 
